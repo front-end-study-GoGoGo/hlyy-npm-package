@@ -1,7 +1,8 @@
 "use strict";
 exports.__esModule = true;
 exports.areRinseObj = exports.areDataReckon = exports.transferFloat = exports.add = void 0;
-var moment_1 = require("moment");
+// import moment from 'moment';
+var moment = require("moment");
 var add = function (a, b) {
     return a + b;
 };
@@ -42,31 +43,31 @@ exports.transferFloat = transferFloat;
  * @returns 返回的是 [年月日，年月日] //moment格式
  */
 var areDataReckon = function (type) {
-    var myData = [], year = (0, moment_1["default"])().year(), month = (0, moment_1["default"])().month(), quarter = (0, moment_1["default"])().quarter(), firstDay = 0, lastDay = 0;
+    var myData = [], year = moment().year(), month = moment().month(), quarter = moment().quarter(), firstDay = 0, lastDay = 0;
     // 时间获取思路一周：按照国外计算方法，获取上周一及本周日时间，即为上周时间
     // moment().year() 获取当前年 返回值number
     // moment().month() 获取月 返回值number 范围为 0-11 
     //  本日
     if (type === '本日') {
-        var todayDay = (0, moment_1["default"])(((0, moment_1["default"])().unix()) * 1000).format('YYYY-MM-DD');
+        var todayDay = moment((moment().unix()) * 1000).format('YYYY-MM-DD');
         myData = [
-            (0, moment_1["default"])(todayDay, 'YYYY-MM-DD'),
-            (0, moment_1["default"])(todayDay, 'YYYY-MM-DD')
+            moment(todayDay, 'YYYY-MM-DD'),
+            moment(todayDay, 'YYYY-MM-DD')
         ];
     }
     //  上日
     if (type === '上日') {
-        var lastDay_1 = (0, moment_1["default"])(((0, moment_1["default"])().unix() - 24 * 60 * 60) * 1000).format('YYYY-MM-DD');
+        var lastDay_1 = moment((moment().unix() - 24 * 60 * 60) * 1000).format('YYYY-MM-DD');
         myData = [
-            (0, moment_1["default"])(lastDay_1, 'YYYY-MM-DD'),
-            (0, moment_1["default"])(lastDay_1, 'YYYY-MM-DD')
+            moment(lastDay_1, 'YYYY-MM-DD'),
+            moment(lastDay_1, 'YYYY-MM-DD')
         ];
     }
     // 上周 
     else if (type === '上周') {
         myData = [
-            (0, moment_1["default"])((0, moment_1["default"])().day(-6).format('YYYY-MM-DD'), 'YYYY-MM-DD'),
-            (0, moment_1["default"])((0, moment_1["default"])().day(0).format('YYYY-MM-DD'), 'YYYY-MM-DD')
+            moment(moment().day(-6).format('YYYY-MM-DD'), 'YYYY-MM-DD'),
+            moment(moment().day(0).format('YYYY-MM-DD'), 'YYYY-MM-DD')
         ];
     }
     // 上月
@@ -80,32 +81,32 @@ var areDataReckon = function (type) {
                 firstDay = 1;
                 lastDay = 31;
                 myData = [
-                    (0, moment_1["default"])(year + "-" + month + "-0" + firstDay, 'YYYY-MM-DD'),
-                    (0, moment_1["default"])(year + "-" + month + "-" + lastDay, 'YYYY-MM-DD')
+                    moment(year + "-" + month + "-0" + firstDay, 'YYYY-MM-DD'),
+                    moment(year + "-" + month + "-" + lastDay, 'YYYY-MM-DD')
                 ];
                 break;
             case 11:
                 firstDay = 1;
                 lastDay = 30;
                 myData = [
-                    (0, moment_1["default"])(year + "-" + month + "-0" + firstDay, 'YYYY-MM-DD'),
-                    (0, moment_1["default"])(year + "-" + month + "-" + lastDay, 'YYYY-MM-DD')
+                    moment(year + "-" + month + "-0" + firstDay, 'YYYY-MM-DD'),
+                    moment(year + "-" + month + "-" + lastDay, 'YYYY-MM-DD')
                 ];
                 break;
             case 10:
                 firstDay = 1;
-                lastDay = (0, moment_1["default"])(year + "-" + month, "YYYY-MM").daysInMonth(); //获取当前月份总天数
+                lastDay = moment(year + "-" + month, "YYYY-MM").daysInMonth(); //获取当前月份总天数
                 myData = [
-                    (0, moment_1["default"])(year + "-" + month + "-0" + firstDay, 'YYYY-MM-DD'),
-                    (0, moment_1["default"])(year + "-" + month + "-" + lastDay, 'YYYY-MM-DD')
+                    moment(year + "-" + month + "-0" + firstDay, 'YYYY-MM-DD'),
+                    moment(year + "-" + month + "-" + lastDay, 'YYYY-MM-DD')
                 ];
                 break;
             default:
                 firstDay = 1;
-                lastDay = (0, moment_1["default"])(year + "-0" + month, "YYYY-MM").daysInMonth(); //获取当前月份总天数
+                lastDay = moment(year + "-0" + month, "YYYY-MM").daysInMonth(); //获取当前月份总天数
                 myData = [
-                    (0, moment_1["default"])(year + "-0" + month + "-0" + firstDay, 'YYYY-MM-DD'),
-                    (0, moment_1["default"])(year + "-0" + month + "-" + lastDay, 'YYYY-MM-DD')
+                    moment(year + "-0" + month + "-0" + firstDay, 'YYYY-MM-DD'),
+                    moment(year + "-0" + month + "-" + lastDay, 'YYYY-MM-DD')
                 ];
                 break;
         }
@@ -116,69 +117,69 @@ var areDataReckon = function (type) {
             case 1:
                 year -= 1;
                 firstDay = 1;
-                lastDay = (0, moment_1["default"])(year + "-12", "YYYY-MM").daysInMonth();
+                lastDay = moment(year + "-12", "YYYY-MM").daysInMonth();
                 myData = [
-                    (0, moment_1["default"])(year + "-09-0" + firstDay, 'YYYY-MM-DD'),
-                    (0, moment_1["default"])(year + "-12-" + lastDay, 'YYYY-MM-DD')
+                    moment(year + "-09-0" + firstDay, 'YYYY-MM-DD'),
+                    moment(year + "-12-" + lastDay, 'YYYY-MM-DD')
                 ];
                 break;
             case 2:
                 firstDay = 1;
-                lastDay = (0, moment_1["default"])(year + "-03", "YYYY-MM").daysInMonth();
+                lastDay = moment(year + "-03", "YYYY-MM").daysInMonth();
                 myData = [
-                    (0, moment_1["default"])(year + "-01-0" + firstDay, 'YYYY-MM-DD'),
-                    (0, moment_1["default"])(year + "-03-" + lastDay, 'YYYY-MM-DD')
+                    moment(year + "-01-0" + firstDay, 'YYYY-MM-DD'),
+                    moment(year + "-03-" + lastDay, 'YYYY-MM-DD')
                 ];
                 break;
             case 3:
                 firstDay = 1;
-                lastDay = (0, moment_1["default"])(year + "-06", "YYYY-MM").daysInMonth();
+                lastDay = moment(year + "-06", "YYYY-MM").daysInMonth();
                 myData = [
-                    (0, moment_1["default"])(year + "-04-0" + firstDay, 'YYYY-MM-DD'),
-                    (0, moment_1["default"])(year + "-06-" + lastDay, 'YYYY-MM-DD')
+                    moment(year + "-04-0" + firstDay, 'YYYY-MM-DD'),
+                    moment(year + "-06-" + lastDay, 'YYYY-MM-DD')
                 ];
                 break;
             case 4:
                 firstDay = 1;
-                lastDay = (0, moment_1["default"])(year + "-09", "YYYY-MM").daysInMonth();
+                lastDay = moment(year + "-09", "YYYY-MM").daysInMonth();
                 myData = [
-                    (0, moment_1["default"])(year + "-07-0" + firstDay, 'YYYY-MM-DD'),
-                    (0, moment_1["default"])(year + "-09-" + lastDay, 'YYYY-MM-DD')
+                    moment(year + "-07-0" + firstDay, 'YYYY-MM-DD'),
+                    moment(year + "-09-" + lastDay, 'YYYY-MM-DD')
                 ];
                 break;
         }
     }
     else if (type === '上年') {
         myData = [
-            (0, moment_1["default"])((0, moment_1["default"])().year() - 1 + "-01-01", 'YYYY-MM-DD'),
-            (0, moment_1["default"])((0, moment_1["default"])().year() - 1 + "-12-31", 'YYYY-MM-DD')
+            moment(moment().year() - 1 + "-01-01", 'YYYY-MM-DD'),
+            moment(moment().year() - 1 + "-12-31", 'YYYY-MM-DD')
         ];
     }
     else if (type === '本日') {
-        var today = (0, moment_1["default"])(((0, moment_1["default"])().unix()) * 1000).format('YYYY-MM-DD');
-        var lastDay_2 = (0, moment_1["default"])(((0, moment_1["default"])().unix()) * 1000).format('YYYY-MM-DD');
+        var today = moment((moment().unix()) * 1000).format('YYYY-MM-DD');
+        var lastDay_2 = moment((moment().unix()) * 1000).format('YYYY-MM-DD');
         myData = [
-            (0, moment_1["default"])(today, 'YYYY-MM-DD'),
-            (0, moment_1["default"])(lastDay_2, 'YYYY-MM-DD')
+            moment(today, 'YYYY-MM-DD'),
+            moment(lastDay_2, 'YYYY-MM-DD')
         ];
     }
     else if (type === '近一周') {
         // // console.log('当天时间：', moment((moment().unix()) * 1000).format('YYYY-MM-DD'));
         myData = [
-            (0, moment_1["default"])((0, moment_1["default"])(((0, moment_1["default"])().unix() - 7 * 24 * 60 * 60) * 1000).format('YYYY-MM-DD'), 'YYYY-MM-DD'),
-            (0, moment_1["default"])((0, moment_1["default"])(((0, moment_1["default"])().unix()) * 1000).format('YYYY-MM-DD'), 'YYYY-MM-DD'),
+            moment(moment((moment().unix() - 7 * 24 * 60 * 60) * 1000).format('YYYY-MM-DD'), 'YYYY-MM-DD'),
+            moment(moment((moment().unix()) * 1000).format('YYYY-MM-DD'), 'YYYY-MM-DD'),
         ];
     }
     else if (type === '近一月') {
         myData = [
-            (0, moment_1["default"])((0, moment_1["default"])(((0, moment_1["default"])().unix() - 30 * 24 * 60 * 60) * 1000).format('YYYY-MM-DD'), 'YYYY-MM-DD'),
-            (0, moment_1["default"])((0, moment_1["default"])(((0, moment_1["default"])().unix()) * 1000).format('YYYY-MM-DD'), 'YYYY-MM-DD'),
+            moment(moment((moment().unix() - 30 * 24 * 60 * 60) * 1000).format('YYYY-MM-DD'), 'YYYY-MM-DD'),
+            moment(moment((moment().unix()) * 1000).format('YYYY-MM-DD'), 'YYYY-MM-DD'),
         ];
     }
     else if (type === '近一年') {
         myData = [
-            (0, moment_1["default"])((0, moment_1["default"])(((0, moment_1["default"])().unix() - 365 * 24 * 60 * 60) * 1000).format('YYYY-MM-DD'), 'YYYY-MM-DD'),
-            (0, moment_1["default"])((0, moment_1["default"])(((0, moment_1["default"])().unix()) * 1000).format('YYYY-MM-DD'), 'YYYY-MM-DD'),
+            moment(moment((moment().unix() - 365 * 24 * 60 * 60) * 1000).format('YYYY-MM-DD'), 'YYYY-MM-DD'),
+            moment(moment((moment().unix()) * 1000).format('YYYY-MM-DD'), 'YYYY-MM-DD'),
         ];
     }
     // // console.log("字符串时间：", moment(myData[0]).format('YYYY MM DD'));
@@ -200,8 +201,8 @@ var areRinseObj = function (obj, timeFormatString, startTime, endTime) {
         for (var k in obj) {
             if (obj[k] !== '' && obj[k] !== undefined && obj[k] !== null) {
                 if (typeof (obj[k]) === 'object') {
-                    newObj["" + startTime] = (0, moment_1["default"])(obj[k][0]).format('YYYY-MM-DD') + ' 00:00:00';
-                    newObj["" + endTime] = (0, moment_1["default"])(obj[k][1]).format('YYYY-MM-DD') + ' 23:59:59';
+                    newObj["" + startTime] = moment(obj[k][0]).format('YYYY-MM-DD') + ' 00:00:00';
+                    newObj["" + endTime] = moment(obj[k][1]).format('YYYY-MM-DD') + ' 23:59:59';
                 }
                 else {
                     newObj[k] = obj[k];

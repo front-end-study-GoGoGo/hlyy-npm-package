@@ -1,8 +1,9 @@
-import moment from 'moment';
+// import moment from 'moment';
+import moment = require('moment')
 
 export const add = (a: number, b: number) => {
 
-  return a + b;
+  return a + b + 1;
 }
 
 /**
